@@ -23,9 +23,6 @@ class ChatTab extends Component {
             
             <Text>Puja Shrestha</Text>
             <Text>Luckey Sherpa</Text>
-            <Text>Thinley Sherpa</Text>
-            <Text>Pasang Lhamu Sherpa</Text>
-            <Text>Speakers</Text>
           </View>
         );
     }
