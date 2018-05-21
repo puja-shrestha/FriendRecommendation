@@ -21,7 +21,7 @@ class personalInfo extends Component {
                 <Text style={{ color: 'purple', alignItems: 'center', justifyContent: 'center', fontSize: 22, fontWeight: 'bold'}}>Registration Form</Text>
             </View>
             <Text style={styles.inputLabels}>First Name</Text>
-            <TextInput placeholder="Enter first name here"
+            <TextInput placeholder="Enter first name"
             style={styles.inputTextStyle}
             onChangeText={(text) => this.setState({ text })}
             />
