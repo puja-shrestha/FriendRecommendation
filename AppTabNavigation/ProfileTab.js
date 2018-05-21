@@ -21,6 +21,7 @@ class ProfileTab extends Component {
         return (
           <View>
             <Text>Puja Shrestha</Text>
+            <Text>Luckey Sherpa</Text>
           </View>
         );
     }
