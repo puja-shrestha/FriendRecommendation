@@ -4,7 +4,7 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 $app = new \Slim\App;
 
-// Get All Customers
+// Get All User
 $app->get('/api/customers', function(Request $request, Response $response){
    $sql = "SELECT * FROM user";
 
@@ -29,11 +29,11 @@ $app->get('/api/customers', function(Request $request, Response $response){
 
 });
 
-// Get Single Customers
-$app->get('/api/customers/{id}', function(Request $request, Response $response){
-    $id = $request->getAttribute('id');
+// Get Single User
+$app->get('/api/customers/{user_id}', function(Request $request, Response $response){
+    $id = $request->getAttribute('user_id');
     
-    $sql = "SELECT * FROM customers WHERE id = $id";
+    $sql = "SELECT * FROM user WHERE user_id = $id";
  
     try{
          //Get the DB Object
@@ -56,45 +56,48 @@ $app->get('/api/customers/{id}', function(Request $request, Response $response){
  
  });
 
-//  // Add Customers
-// $app->post('/api/customers/add', function(Request $request, Response $response){
-//     $first_name = $request->getParam('first_name');
-//     $last_name = $request->getParam('last_name');
-//     $phone = $request->getParam('phone');
-//     $email = $request->getParam('email');
-//     $address = $request->getParam('address');
-//     $city = $request->getParam('city');
-//     $state = $request->getParam('state');
+ // Add User
+$app->post('/api/customers/add', function(Request $request, Response $response){
+    $name = $request->getParam('name');
+    $email = $request->getParam('email');
+    $username = $request->getParam('username');
+    $password = $request->getParam('password');
+    $dob = $request->getParam('dob');
+    $description = $request->getParam('description');
+    $interest_id = $request->getParam('interest_id');
     
-//     $sql = "INSERT INTO customers (first_name,last_name,phone,email,address,city,state) VALUES
-//     (:first_name,:last_name,:phone,:email,:address,:city,:state);
+    $sql = "INSERT INTO user (name,email,username,password,dob,description,interest_id) VALUES
+    (:name,:email,:username,:password,:dob,:description,:interest_id)";
  
-//     try{
-//          //Get the DB Object
-//          $db = new db();
-//          // Connect
-//          $db = $db->connect();
+    try{
+         //Get the DB Object
+         $db = new db();
+         // Connect
+         $db = $db->connect();
+
+         $stmt = $db->prepare($sql);
+
+         $stmt->bindParam(':name' , $name);
+         $stmt->bindParam(':email' , $email);
+         $stmt->bindParam(':username' , $username);
+         $stmt->bindParam(':password' , $password);
+         $stmt->bindParam(':dob' , $dob);
+         $stmt->bindParam(':description' , $description);
+         $stmt->bindParam(':interest_id' , $interest_id);
+
+         $stmt->execute();
+
+         echo '{"notice": {"text": "Customer Added"}';
  
-//          $stmt = $db->prepare($sql);
-
-//          $stmt->bindParam(':first_name', $first_name);
-//          $stmt->bindParam(':last_name', $last_name);
-//          $stmt->bindParam(':phone', $phone);
-//          $stmt->bindParam(':email', $email);
-//          $stmt->bindParam('address', $address);
-//          $stmt->bindParam(':city', $city);
-//          $stmt->bindParam(':state', $state);
-
-//          $stmt->execute();
-
-//          echo 'good'; 
+         
  
  
          
-//     } catch(PDOException $e){
-//         echo '{"error": {"text": '.$e->getMessage().'}';
+    } catch(PDOException $e){
+        echo '{"error": {"text": '.$e->getMessage().'}';
  
-//     }
+    }
  
  
-//  });
+ });
+
