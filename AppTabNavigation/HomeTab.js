@@ -29,7 +29,7 @@ class HomeTab extends Component {
 
 
     makeRemoteRequest = () => {
-        var ngrokVar = 'cdf827de.ngrok.io';
+        var ngrokVar = '84c2d93e.ngrok.io';
         const url = 'http://'+ ngrokVar +'/FriendRecommendBranch/FriendRecommendation/api/public/api/customers';
         this.setState({ loading: true });
 
