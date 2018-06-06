@@ -8,9 +8,169 @@ import CheckBox from 'react-native-checkbox';
 class personalInfo extends Component {
   constructor(props) {
     super(props);
-    this.state = { text: 'Useless Placeholder' };
-    this.state = { date: "2016-05-15" }
+    this.state = { 
+      text: 'Useless Placeholder',
+      firstName: '',
+      firstNameValidate: false,
+      lastName: '',
+      lastNameValidate: false,
+      username: '',
+      usernameValidate: false,
+      password: '',
+      passwordValidate: false,
+      passwordConfirm: '',
+      passwordConfirmValidate: false,
+      email: '',
+      emailValidate: false,
+      address: '',
+      addressValidate: false,
+      date: '',
+      dateValidate: false,
+      description: '',
+      descriptionValidate: false,
+
+    };
   }
+
+  validateInput(inputValue, type){
+    if(type=='firstName'){
+      regexalphabet=/^[a-zA-Z]+$/
+
+      if(regexalphabet.test(inputValue)){
+        this.setState({
+          firstNameValidate: true,
+          firstName: inputValue,
+        })
+      }
+      else{
+        this.setState({
+          firstNameValidate: false,
+          firstName: '',
+        })
+      }
+    }
+    
+    if(type=='lastName'){
+      regexalphabet=/^[a-zA-Z]+$/
+
+      if(regexalphabet.test(inputValue)){
+        this.setState({
+          lastNameValidate: true,
+          lastName: inputValue,
+        })
+      }
+      else{
+        this.setState({
+          lastNameValidate: false,
+          lastName: '',
+        })
+      }
+    }
+ 
+    if(type=='username'){
+      regexalphabet=/^[a-zA-Z0-9_.-]*$/
+
+      if(regexalphabet.test(inputValue)){
+        this.setState({
+          usernameValidate: true,
+          username: inputValue,
+        })
+      }
+      else{
+        this.setState({
+          usernameValidate: false,
+          username: '',
+        })
+      }
+    }
+
+    if(type=='password'){
+      regexalphabet=/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
+
+      if(regexalphabet.test(inputValue)){
+        this.setState({
+          passwordValidate: true,
+          password: inputValue,
+        })
+      }
+      else{
+        this.setState({
+          passwordValidate: false,
+          password: '',
+        })
+      }
+    }
+
+    if (type='email'){
+      regexemail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      if(regexemail.test(inputValue)){
+        this.setState({
+          emailValidate: true,
+          email: inputValue,
+        })
+      }
+      else(
+        this.setState({
+          emailValidate: false,
+          email: '',
+        })
+      )
+    }
+
+        
+    if(type=='address'){
+      regexalphabet=/^[a-zA-Z0-9,.!? ]*$/
+
+      if(regexalphabet.test(inputValue)){
+        this.setState({
+          addressValidate: true,
+          address: inputValue,
+        })
+      }
+      else{
+        this.setState({
+          addressValidate: false,
+          address: '',
+        })
+      }
+    }
+         
+    if(type=='DOB'){
+      regexalphabet=/^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/
+
+      if(regexalphabet.test(inputValue)){
+        this.setState({
+          dateValidate: true,
+          date: inputValue,
+        })
+      }
+      else{
+        this.setState({
+          dateValidate: false,
+          date: '',
+        })
+      }
+    }
+         
+    if(type=='description'){
+      regexalphabet=/^[a-zA-Z]+$/
+
+      if(regexalphabet.test(inputValue)){
+        this.setState({
+          descriptionValidate: true,
+          description: inputValue,
+        })
+      }
+      else{
+        this.setState({
+          descriptionValidate: false,
+          description: '',
+        })
+      }
+    }
+ 
+  }
+
 
   render() {
     return (
@@ -23,40 +183,54 @@ class personalInfo extends Component {
             <Text style={styles.inputLabels}>First Name</Text>
             <TextInput placeholder="Enter first name here"
             style={styles.inputTextStyle}
-            onChangeText={(text) => this.setState({ text })}
+            onChangeText={(inputValue) => this.validateInput(inputValue, 'firstName')}
             />
+            <Text>{this.state.firstName}</Text>
+
             <Text style={styles.inputLabels}>Last Name</Text>
             <TextInput placeholder="Enter last name"
             style={styles.inputTextStyle}
-            onChangeText={(text) => this.setState({ text })}
+            onChangeText={(inputValue) => this.validateInput(inputValue, 'lastName')}
             />
+            <Text>{this.state.lastName}</Text>
+
              <Text style={styles.inputLabels}>Username</Text>
             <TextInput placeholder="Enter username"
             style={styles.inputTextStyle}
-            onChangeText={(text) => this.setState({ text })}
+            onChangeText={(inputValue) => this.validateInput(inputValue, 'username')}
             />
+            <Text>{this.state.username}</Text>
+
             <Text style={styles.inputLabels}>Password</Text>
-            <TextInput placeholder="Enter password"
+            <TextInput placeholder="Enter password (Minimum 8 characters, 1 letter and 1 number)"
+            secureTextEntry={true}
             style={styles.inputTextStyle}
-            onChangeText={(text) => this.setState({ text })}
+            onChangeText={(inputValue) => this.validateInput(inputValue, 'password')}
             />
+            <Text>{this.state.password}</Text>
 
             <Text style={styles.inputLabels}>Confirm Password</Text>
             <TextInput placeholder="Enter confirm password"
+            secureTextEntry={true}
             style={styles.inputTextStyle}
-            onChangeText={(text) => this.setState({ text })}
+            onChangeText={(inputValue) => this.validateInput(inputValue, 'password')}
             />
+            <Text>{this.state.passwordConfirm}</Text>
 
             <Text style={styles.inputLabels}>Email</Text>
             <TextInput placeholder="Enter email"
             style={styles.inputTextStyle}
-            onChangeText={(text) => this.setState({ text })}
+            onChangeText={(inputValue) => this.validateInput(inputValue , 'email')}
             />
+            <Text>{this.state.email}</Text>
+
+
             <Text style={styles.inputLabels}>Address</Text>
             <TextInput placeholder="Enter address"
             style={styles.inputTextStyle}
-            onChangeText={(text) => this.setState({ text })}
+            onChangeText={(inputValue) => this.validateInput(inputValue, 'address')}
             />
+            <Text>{this.state.address}</Text>
 
             <Text style={styles.inputLabels}>DOB</Text>
             <DatePicker
@@ -81,16 +255,17 @@ class personalInfo extends Component {
                 }
                 // ... You can check the source to find the other keys.
             }}
-            onDateChange={(date) => { this.setState({ date: date }) }}
+            onDateChange={(inputValue) => { this.validateInput(inputValue , 'DOB') }}
             />
+            <Text>{this.state.date}</Text>
 
             <Text style={styles.inputLabels}>Your Description</Text>
             <TextInput
             style = {styles.inputTextStyle}
             multiline={true}
             numberOfLines={4}
-            onChangeText={(text) => this.setState({ text })}
-            value={this.state.text} />
+            onChangeText={(inputValue) => this.validateInput(inputValue , 'description')}/>
+            <Text>{this.state.description}</Text>
 
             <Text style={styles.inputLabels}>Interest</Text> 
             <CheckBox
